@@ -4,7 +4,7 @@
 
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
-|  |  |  |
+| Nguyễn Văn Đăng | 2A202603371 | A · dựng prototype hai màn hình, chụp và đánh số ảnh, viết §5 và chuẩn bị kịch bản demo §7 |
 |  |  |  |
 |  |  |  |
 
@@ -78,9 +78,11 @@ Thêm:
 
 ## §5. Prototype (chặng 5)
 
-- Link hoặc file · công cụ · phần nào mock · có lời gọi AI thật không. → xem [`prototype/`](prototype/)
-- 1–2 ảnh có đánh số; mỗi số: thể hiện gì · nguyên tắc HAX/PAIR nào · mức tự chủ nào.
-- Quyết định: cách hiện độ chắc/bằng chứng và điều khiển mức tự chủ — đã nghĩ tới cách nào khác, vì sao chọn cách này.
+- **File:** [`prototype/index.html`](prototype/index.html) (mở trực tiếp bằng trình duyệt). **Công cụ:** HTML/CSS/JavaScript, hai màn hình chuyển bằng tab: khách và dược sĩ. Hai ca dựng sẵn: (1) trẻ 2 tuổi sốt, thở khó, lơ mơ; (2) hỏi thuốc cho con nhưng chưa cho biết tuổi. Toàn bộ chat, thông báo và trạng thái chuyển ca đều là mock trong bộ nhớ trình duyệt. **Không có lời gọi hoặc log AI thật.**
+- **Ảnh đánh số:** [`prototype/01-khan-cap.png`](prototype/01-khan-cap.png) cho ca khẩn cấp; [`prototype/02-thieu-thong-tin.png`](prototype/02-thieu-thong-tin.png) cho bước hỏi lại. Số ①: nhãn Trợ lý AI và giới hạn gợi ý (G1/G2). Số ②: dừng gợi ý khi nguy hiểm hoặc hỏi tuổi khi thiếu (G10). Số ③: thẻ “Vì sao?” chỉ đúng dữ kiện trong tin khách (G11/PAIR Explainability). Số ④: đường lui đi khám ngay, chuyển dược sĩ, hủy chuyển khi còn chờ (G8/G9/PAIR Graceful Failure). Tab dược sĩ cho thấy thông tin đã chuyển, gồm căn cứ và những việc AI chưa làm.
+- **Thể hiện độ chắc:** chọn câu “chưa đủ căn cứ gợi ý thuốc” và nêu dữ kiện cụ thể (chưa biết tuổi; hoặc có “thở khó”, “lơ mơ”), không dùng phần trăm độ tin cậy giả. Cân nhắc thanh % nhưng loại vì con số không nói cho khách biết thiếu gì hay phải làm gì tiếp.
+- **Điều khiển mức tự chủ:** `khuyen_di_kham` tự hiện ngay khi có dấu hiệu nguy hiểm; `chuyen_duoc_si` tự chuyển khi đã biết là trẻ nhỏ hoặc vẫn thiếu tuổi, khách hủy được khi đang chờ. `goi_y_san_pham` cần dược sĩ duyệt nên không có nút gợi ý trong hai ca này; `luu_ghi_chu_suc_khoe` không dùng; `ban_thuoc_ke_don` cấm. Cân nhắc để AI gợi ý thuốc kèm lời cảnh báo, nhưng loại vì khách có thể dùng thuốc trước khi đọc phần cảnh báo, không đảo lại được. Bảng mức này là đề xuất của A để minh họa prototype; nhóm cần chốt thống nhất với §4.
+- **Đường bấm:** Ca 1 → đọc cảnh báo khẩn → bấm “Tôi đang đưa bé đi khám” hoặc “Xem thông báo cho dược sĩ” → tab dược sĩ thấy thông báo tức thì, không đưa khách vào hàng chờ. Ca 2 → AI hỏi tuổi → bấm “Bé 3 tuổi”/“Tôi chưa rõ” → cuộc chat chuyển dược sĩ → xem hồ sơ chuyển, hoặc hủy chuyển và chuyển lại. Nếu chọn “Bé thở khó hoặc lơ mơ”, luồng chuyển ngay sang cảnh báo khẩn.
 
 ## §6. Tốt là gì (chặng 6 — nhẹ, bỏ được nếu thiếu giờ)
 
@@ -88,4 +90,5 @@ Thêm:
 
 ## §7. Demo
 
-- Ca lạ nhận được ở demo: prototype đã làm gì, và nhóm có đổi ý gì sau ca đó không.
+- **Kịch bản A điều phối (khoảng 4 phút):** B mở đầu 30 giây bằng lát cắt. A mở `prototype/index.html`, bấm ca 1 và đọc câu AI nguyên văn; chỉ ① nhãn AI, ② khối khẩn không xếp hàng, ③ “Vì sao”, ④ hành động tiếp. A bấm “Xem thông báo cho dược sĩ” để cho thấy ca đến ngay cùng căn cứ, không có gợi ý thuốc. A đổi sang ca 2, bấm “Bé 3 tuổi”, cho thấy tự chuyển dược sĩ và nút hủy chuyển; thử nhánh “Bé thở khó hoặc lơ mơ” để quay về cảnh báo khẩn. C nêu mức tự chủ và cái giá khi sai. B giải thích câu chữ và ai được báo.
+- **Ca lạ do TA/giảng viên đưa:** C trả lời theo §4; A chỉ đường tương ứng trên prototype nếu ca thuộc một trong hai nhánh dựng sẵn. Với ca khác, nhóm nói rõ giới hạn của prototype mock và mô tả quyết định, không giả vờ đã xử lý bằng AI thật. Ghi ca lạ thực tế, nhóm đã làm gì và có đổi ý gì **sau khi demo**: _chưa diễn ra_.

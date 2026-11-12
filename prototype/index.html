@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAB5 T1 · Hỏi dược sĩ · Nhóm 9999</title>
+  <style>
+    :root{font-family:system-ui,"Segoe UI",sans-serif;color:#182620;background:#f4f6f2;line-height:1.5;--green:#176b50;--deep:#103d32;--line:#d8e1da;--muted:#587066;--red:#a42525;--redbg:#fff0ed;--amber:#84590c;--amberbg:#fff4d8}
+    *{box-sizing:border-box}body{margin:0}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #e7a327;outline-offset:2px}
+    .top{background:#fff;border-bottom:1px solid var(--line);padding:18px max(24px,calc((100vw - 1180px)/2)) 14px}.top h1{font-size:22px;margin:0}.top p{color:var(--muted);margin:3px 0 13px;font-size:14px}
+    .switch{display:flex;gap:8px;flex-wrap:wrap}.switch button,.tabs button{border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 13px;color:var(--deep)}.switch button.active,.tabs button.active{background:var(--deep);color:#fff;border-color:var(--deep)}
+    .wrap{max-width:1180px;margin:auto;padding:22px 24px 35px}.tabs{display:flex;gap:8px;margin-bottom:16px}.grid{display:grid;grid-template-columns:minmax(0,610px) minmax(270px,1fr);gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 3px 14px #173f2b0b}.chatbox{min-height:650px;overflow:hidden}.chathead{padding:15px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}.chathead b{display:block}.tiny{font-size:12px;color:var(--muted)}.badge{border-radius:100px;padding:4px 9px;font-size:12px;font-weight:700;background:#e6f3ed;color:var(--green)}.badge.warn{background:var(--redbg);color:var(--red)}.badge.wait{background:var(--amberbg);color:var(--amber)}
+    .messages{padding:20px;display:flex;flex-direction:column;gap:16px}.bubble{padding:13px 15px;border-radius:15px;max-width:91%}.bubble.user{align-self:flex-end;color:#fff;background:#285b75;border-bottom-right-radius:4px}.bubble.ai{align-self:flex-start;background:#f0f4f0;border-bottom-left-radius:4px}.who{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}.bubble p{margin:5px 0}.bubble strong{font-weight:750}.callout{border-radius:12px;padding:13px 15px;margin-top:12px}.callout.red{background:var(--redbg);border:1px solid #efc5bf}.callout.amber{background:var(--amberbg);border:1px solid #ead89c}.callout.green{background:#e8f4ed;border:1px solid #b9d7c5}.callout p{margin:5px 0}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;color:var(--muted)}.callout.red .eyebrow{color:var(--red)}.callout.amber .eyebrow{color:var(--amber)}
+    .num{display:inline-flex;align-items:center;justify-content:center;background:#b54510;color:#fff;border-radius:50%;width:22px;height:22px;font-size:12px;font-weight:800;flex:0 0 22px;margin-right:5px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border-radius:10px;border:1px solid var(--line);background:#fff;padding:9px 12px;color:var(--deep);font-weight:650}.btn.primary{background:var(--green);border-color:var(--green);color:#fff}.btn.danger{background:var(--red);border-color:var(--red);color:#fff}.btn:disabled{opacity:.55;cursor:not-allowed}.notice{font-size:13px;color:var(--muted);margin-top:10px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.chip{background:#fff;border:1px solid #cfdbd2;color:#29443a;border-radius:100px;padding:4px 9px;font-size:13px}.line{border-top:1px solid var(--line);margin:13px 0}.right{display:flex;flex-direction:column;gap:16px}.panel{padding:17px 19px}.panel h2{font-size:17px;margin:0 0 9px}.panel p,.panel li{font-size:14px}.panel p{margin:6px 0}.panel ol{padding-left:0;list-style:none;margin:0}.panel li{margin:10px 0;display:flex;align-items:flex-start}.policy{width:100%;border-collapse:collapse;font-size:13px}.policy td{padding:8px 3px;border-bottom:1px solid var(--line);vertical-align:top}.policy td:first-child{font-family:ui-monospace,monospace;font-size:12px;padding-right:8px}.policy td:last-child{text-align:right;font-weight:700}.status{font-size:14px;color:var(--muted)}.staff{padding:20px;min-height:650px}.staff h2{margin:0 0 4px}.staff .summary{border:1px solid var(--line);border-radius:13px;padding:15px;margin:15px 0;background:#fafcf9}.staff dl{display:grid;grid-template-columns:140px 1fr;gap:8px;margin:0;font-size:14px}.staff dt{font-weight:700;color:var(--muted)}.staff dd{margin:0}.footer{max-width:1180px;margin:0 auto;padding:0 24px 22px;color:var(--muted);font-size:12px}@media(max-width:850px){.grid{grid-template-columns:1fr}.chatbox,.staff{min-height:auto}.top{padding:17px 20px}.wrap{padding:18px 14px}.staff dl{grid-template-columns:1fr;gap:1px}.staff dd{margin-bottom:9px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <h1>Hỏi dược sĩ · bản mô phỏng T1</h1>
+    <p>Trợ lý AI trả lời đầu tiên. Tình huống và dữ liệu đều dựng; không kết nối Pharmacity, không gửi hoặc lưu thông tin sức khỏe.</p>
+    <div class="switch" aria-label="Chọn ca demo">
+      <button id="case-danger" type="button">Ca 1 · Dấu hiệu nguy hiểm</button>
+      <button id="case-child" type="button">Ca 2 · Trẻ nhỏ, thiếu thông tin</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav class="tabs" aria-label="Hai màn hình prototype"><button id="tab-customer" type="button">Màn hình khách</button><button id="tab-staff" type="button">Màn hình dược sĩ</button></nav>
+    <div class="grid">
+      <section class="card chatbox" id="main-screen" aria-live="polite"></section>
+      <aside class="right">
+        <section class="card panel"><h2>HAX/PAIR nằm ở đâu?</h2><ol>
+          <li><span class="num">1</span><span><b>G1/G2</b> · nhãn “Trợ lý AI” và giới hạn “không đủ căn cứ gợi ý thuốc”.</span></li>
+          <li><span class="num">2</span><span><b>G10</b> · hỏi một câu khi thiếu tuổi; có dấu hiệu nguy hiểm thì thu hẹp ngay về hướng đi khám.</span></li>
+          <li><span class="num">3</span><span><b>G11 / PAIR Explainability</b> · thẻ “Vì sao” nêu đúng dữ kiện từ tin nhắn.</span></li>
+          <li><span class="num">4</span><span><b>G8/G9 / PAIR Graceful Failure</b> · chuyển dược sĩ, hủy chuyển khi còn chờ, hoặc báo đã làm theo hướng dẫn.</span></li>
+        </ol></section>
+        <section class="card panel"><h2>Quyền thao tác trong bản demo</h2><table class="policy">
+          <tr><td>khuyen_di_kham</td><td>Tự hiện</td></tr>
+          <tr><td>chuyen_duoc_si</td><td>Tự chuyển · hủy được khi chờ</td></tr>
+          <tr><td>goi_y_san_pham</td><td>Cần dược sĩ duyệt</td></tr>
+          <tr><td>luu_ghi_chu_suc_khoe</td><td>Không dùng</td></tr>
+          <tr><td>ban_thuoc_ke_don</td><td>Cấm</td></tr>
+        </table><p class="tiny">Đây là mức đề xuất để A minh họa. Nhóm đối chiếu và chốt cùng §4 trước khi nộp.</p></section>
+      </aside>
+    </div>
+  </main>
+  <footer class="footer">LAB5 · T1 Y tế · Nhóm 9999 · Prototype HTML tĩnh, dùng dữ liệu dựng, không gọi AI thật và không tạo log AI.</footer>
+  <script>
+    const $=s=>document.querySelector(s);
+    const params=new URLSearchParams(location.search);
+    let scenario=params.get('case')==='child'?'child':'danger';
+    let view=params.get('view')==='staff'?'staff':'customer';
+    let childStep='ask', dangerStep='alert', staffRead=false, dangerSource='original', childAge='Chưa được xác nhận';
+    const N=n=>`<span class="num">${n}</span>`;
+    const button=(label,action,kind='')=>`<button type="button" class="btn ${kind}" data-action="${action}">${label}</button>`;
+    function customer(){
+      const head=`<div class="chathead"><div><b>Chat Hỏi dược sĩ</b><span class="tiny">Phiên giả lập · không lưu hồ sơ</span></div><span class="badge ${scenario==='danger'?'warn':'wait'}">${scenario==='danger'?'Cần đi khám ngay':'Đang sàng lọc'}</span></div>`;
+      let html='';
+      if(scenario==='danger'){
+        const urgentMessage=dangerSource==='child'?'Con em sốt hai hôm rồi, có thuốc gì không? Em đang rất vội. Bé thở khó hoặc lơ mơ.':'Con tôi 2 tuổi sốt, thở khó và lơ mơ. Có thuốc gì cho bé không?';
+        html=`<div class="bubble user">${urgentMessage}</div><div class="bubble ai"><div class="who">${N(1)}Trợ lý AI · chưa đưa ra chẩn đoán hay thuốc</div><p><strong>Bé có dấu hiệu cần được chăm sóc y tế ngay.</strong> Hãy đưa bé đến cơ sở cấp cứu gần nhất hoặc gọi cấp cứu. Đừng chờ trả lời trong chat để đi khám.</p>
+        <div class="callout red"><div class="eyebrow">${N(2)}Ưu tiên khẩn cấp · không xếp hàng chờ</div><p>Trợ lý không gợi ý sản phẩm hoặc liều dùng trong ca này.</p><div class="actions">${button('Tôi đang đưa bé đi khám','danger-done','danger')}${button('Xem thông báo cho dược sĩ','staff')}</div></div>
+        <div class="callout green"><div class="eyebrow">${N(3)}Vì sao?</div><p>Tin nhắn có “thở khó” hoặc “lơ mơ” ở trẻ${dangerSource==='original'?' 2 tuổi':''}. Dấu hiệu này cần được ưu tiên thay vì chọn thuốc trong chat.</p></div>
+        <p class="notice">${N(4)}Thông báo khẩn được mô phỏng gửi cho dược sĩ ngay; khách không phải đợi dược sĩ trước khi đi khám.</p>${dangerStep==='done'?'<div class="callout green"><b>Đã ghi nhận bạn đang đi khám.</b> Nếu cần, bạn vẫn có thể mở màn hình dược sĩ để xem thông tin được chuyển.</div>':''}</div>`;
+      } else {
+        html=`<div class="bubble user">Con em sốt hai hôm rồi, có thuốc gì không? Em đang rất vội.</div><div class="bubble ai"><div class="who">${N(1)}Trợ lý AI · chưa đủ căn cứ gợi ý thuốc</div>`;
+        if(childStep==='ask') html+=`<p>Mình cần biết <strong>người dùng thuốc bao nhiêu tuổi</strong> để tránh gợi ý nhầm. Bé bao nhiêu tuổi?</p><div class="callout amber"><div class="eyebrow">${N(2)}Hỏi lại một câu</div><div class="actions">${button('Bé 3 tuổi','age-child','primary')}${button('Tôi chưa rõ','age-unknown')}${button('Bé thở khó hoặc lơ mơ','age-danger','danger')}</div></div><div class="callout green"><div class="eyebrow">${N(3)}Vì sao?</div><p>Tin nhắn chưa nói tuổi của người dùng thuốc; “sốt hai hôm” chưa đủ để chọn sản phẩm.</p></div><p class="notice">Bạn có thể yêu cầu dược sĩ ngay, không cần trả lời thêm.</p><div class="actions">${button('Gặp dược sĩ','transfer')}</div>`;
+        else if(childStep==='transferred') html+=`<p>Vì người dùng thuốc là trẻ nhỏ hoặc thông tin vẫn thiếu, mình đã <strong>chuyển cuộc chat cho dược sĩ</strong>. Mình chưa gợi ý sản phẩm hay liều dùng.</p><div class="callout green"><div class="eyebrow">${N(4)}Đã chuyển · chờ dược sĩ</div><p>Dược sĩ thấy tin nhắn và câu trả lời về tuổi trong phiên chat này. Chưa có ghi chú sức khỏe nào được lưu vào hồ sơ.</p><div class="actions">${button('Xem màn hình dược sĩ','staff','primary')}${button('Hủy yêu cầu chuyển','cancel')}</div></div><div class="callout amber"><div class="eyebrow">${N(3)}Căn cứ</div><p>${childAge==='3 tuổi'?'Trẻ 3 tuổi':'Chưa xác nhận được tuổi'}; triệu chứng kéo dài hai hôm. Chưa có dữ liệu về dị ứng, thuốc đang dùng và bệnh nền.</p></div>`;
+        else html+=`<p>Yêu cầu chuyển đã được hủy. Mình vẫn chưa có đủ thông tin để gợi ý thuốc cho trẻ. Bạn có thể chuyển lại cho dược sĩ bất cứ lúc nào.</p><div class="callout amber"><div class="eyebrow">${N(4)}Có thể sửa</div><div class="actions">${button('Chuyển lại cho dược sĩ','transfer','primary')}${button('Trở lại câu hỏi tuổi','restart')}</div></div>`;
+        html+='</div>';
+      }
+      return head+`<div class="messages">${html}</div>`;
+    }
+    function staff(){
+      const urgent=scenario==='danger';
+      const urgentMessage=dangerSource==='child'?'“Con em sốt hai hôm rồi, có thuốc gì không? Em đang rất vội. Bé thở khó hoặc lơ mơ.”':'“Con tôi 2 tuổi sốt, thở khó và lơ mơ. Có thuốc gì cho bé không?”';
+      const active=urgent||childStep==='transferred';
+      return `<div class="staff"><div class="chathead" style="padding:0 0 13px"><div><h2>Hàng nhận ca của dược sĩ</h2><span class="tiny">Màn hình 2 · dữ liệu mô phỏng trong phiên</span></div><span class="badge ${urgent?'warn':'wait'}">${urgent?'Thông báo khẩn':active?'Đang chờ':'Chưa có ca'}</span></div>
+        ${active?`<div class="summary"><div class="eyebrow">${urgent?'Ưu tiên tức thì · ngoài hàng chờ':'Chuyển dược sĩ · có thể hủy khi đang chờ'}</div><dl><dt>Tin của khách</dt><dd>${urgent?urgentMessage:'“Con em sốt hai hôm rồi, có thuốc gì không? Em đang rất vội.”'}</dd>${urgent?'':`<dt>Tuổi được báo</dt><dd>${childAge}</dd>`}<dt>AI đã làm</dt><dd>${urgent?'Hiện khuyến nghị đi khám/cấp cứu ngay; không gợi ý thuốc.':'Hỏi tuổi, sau đó chuyển ca; không gợi ý thuốc.'}</dd><dt>Căn cứ</dt><dd>${urgent?`Tin nhắn ghi “thở khó” hoặc “lơ mơ” ở trẻ${dangerSource==='original'?' 2 tuổi':''}.`:'Người dùng thuốc là trẻ nhỏ hoặc chưa rõ tuổi; còn thiếu dị ứng, thuốc đang dùng, bệnh nền.'}</dd><dt>Chưa làm</dt><dd>Chưa gợi ý sản phẩm, chưa bán thuốc, chưa lưu ghi chú sức khỏe.</dd></dl></div><div class="callout ${urgent?'red':'amber'}"><b>${urgent?'Khách đã được nhắc đi khám ngay. Dược sĩ không giữ khách trong hàng chờ.':'Dược sĩ có thể nhận ca từ bản tóm tắt này.'}</b><div class="actions">${button(staffRead?'Đã xem thông báo':'Đánh dấu đã xem','staff-read','primary')}${button('Quay lại màn hình khách','customer')}</div></div>`:`<div class="callout amber"><b>Chưa có ca được chuyển.</b><p>Quay về màn hình khách và đi qua bước sàng lọc.</p>${button('Về màn hình khách','customer')}</div>`}
+        <p class="notice">Bản demo không kết nối dược sĩ thật và không lưu thông tin sức khỏe.</p></div>`;
+    }
+    function render(){
+      $('#case-danger').classList.toggle('active',scenario==='danger');$('#case-child').classList.toggle('active',scenario==='child');
+      $('#tab-customer').classList.toggle('active',view==='customer');$('#tab-staff').classList.toggle('active',view==='staff');
+      $('#main-screen').innerHTML=view==='customer'?customer():staff();
+    }
+    document.addEventListener('click',e=>{
+      const b=e.target.closest('button');if(!b)return;
+      if(b.id==='case-danger'||b.id==='case-child'){scenario=b.id==='case-danger'?'danger':'child';view='customer';childStep='ask';dangerStep='alert';staffRead=false;dangerSource='original';childAge='Chưa được xác nhận';render();return}
+      if(b.id==='tab-customer'||b.id==='tab-staff'){view=b.id==='tab-customer'?'customer':'staff';render();return}
+      switch(b.dataset.action){
+        case 'danger-done':dangerStep='done';break;
+        case 'staff':view='staff';break;
+        case 'customer':view='customer';break;
+        case 'age-danger':scenario='danger';dangerSource='child';dangerStep='alert';break;
+        case 'age-child':childAge='3 tuổi';childStep='transferred';break;
+        case 'age-unknown':case 'transfer':childAge='Chưa được xác nhận';childStep='transferred';break;
+        case 'cancel':childStep='cancelled';break;
+        case 'restart':childStep='ask';break;
+        case 'staff-read':staffRead=true;break;
+        default:return;
+      }
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
