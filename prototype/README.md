@@ -22,4 +22,4 @@
 | [02-thieu-thong-tin.png](02-thieu-thong-tin.png) | ② | Hỏi đúng một câu về tuổi trước khi quyết định | G10 | Chưa gợi ý sản phẩm |
 | [02-thieu-thong-tin.png](02-thieu-thong-tin.png) | ③–④ | Nêu dữ kiện thiếu và cho gặp dược sĩ | G11, G8/G9 | `chuyen_duoc_si` tự chuyển, hủy được khi chờ |
 
-**Lưu ý khi ghép bài:** bảng mức tự chủ trong prototype là đề xuất của A. Cần đối chiếu với §4 của C trước khi nộp để hai phần nói cùng một mức.
+**Lưu ý khi ghép bài:** bảng mức tự chủ trong prototype đã khớp §4 do Nguyễn Văn Đăng soạn. Cả nhóm cần xác nhận mức trước khi nộp.
