@@ -5,7 +5,7 @@
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
 | Nguyễn Văn Đăng | 2A202603371 | A + C · dựng prototype và ảnh, viết §2/§4/§5, chuẩn bị demo §7 |
-|  |  |  |
+| Bùi Quang Hiếu | 2A202603639 | B · viết §1 (3 việc không làm), §3 (khi AI sai), §6 (tiêu chí Pass/Fail), chuẩn bị demo §7 |
 |  |  |  |
 
 > Ghi cụ thể việc mỗi người làm — khi demo, ai cũng có thể bị hỏi về phần có tên mình. **Mã học viên phải đúng**: đây là căn cứ đối chiếu điểm.
