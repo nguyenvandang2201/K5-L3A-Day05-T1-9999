@@ -21,9 +21,9 @@
 | kênh chat Hỏi dược sĩ của Pharmacity | khách | nhắn hỏi "tôi (hoặc người nhà) bị X, có thuốc gì không" | tự trả lời và gợi ý sản phẩm, hỏi thêm câu sàng lọc, hay chuyển dược sĩ, khuyên đi khám ngay | người dùng thuốc không nhận sai sản phẩm và ca nguy hiểm không nằm trong hàng chờ |
 
 - **3 việc tính năng KHÔNG làm** (mỗi việc một câu vì sao):
-  1. _…_
-  2. _…_
-  3. _…_
+  1. Không chẩn đoán bệnh hay kết luận nguyên nhân gây sốt qua chat, vì một tin nhắn không đủ dữ kiện khám và dễ khiến khách trì hoãn đi khám khi có dấu hiệu nguy hiểm.
+  2. Không tự chọn thuốc, liều dùng hoặc bán thuốc kê đơn cho trẻ từ câu hỏi chưa đủ tuổi, dị ứng, thuốc đang dùng và bệnh nền, vì sai thuốc/liều đã dùng thì không thể thu hồi tác hại bằng một lời đính chính.
+  3. Không tự lưu tin nhắn thành ghi chú sức khỏe dài hạn, vì khách đang hỏi thuốc chứ chưa đồng ý tạo hồ sơ sức khỏe; ca cần dược sĩ chỉ chuyển dữ kiện trong phiên chat để xử lý.
 
 ## §2. Kịch bản rủi ro (chặng 2)
 
@@ -44,13 +44,23 @@
 
 ## §3. Khi AI sai (chặng 3)
 
-Với mỗi kịch bản đắt nhất:
+**Hai ca B dùng để viết câu chữ:** ca nguy hiểm và ca trẻ nhỏ chưa rõ tuổi đã dựng trong [`prototype/index.html`](prototype/index.html). Đây là hai ca tạm đối chiếu với lựa chọn chính thức của C ở §2; nếu §2 chọn ca khác, nhóm phải sửa §3 và prototype cho khớp trước khi nộp. Các câu trích dưới đây là câu thật hiển thị trong prototype, không phải phản hồi từ AI đang chạy.
 
-- AI nói gì (nguyên văn) · người dùng thấy gì · làm gì tiếp · ai được báo, sau bao lâu.
-- Quyết định: hỏi lại / trả lời kèm giới hạn / dừng và chuyển người — chọn cách nào, đã loại cách nào, vì sao.
-- Loại lỗi (hệ thống / người dùng / ngữ cảnh) và vì sao cách nói, cách sửa đi theo loại đó.
-- 2–3 nguyên tắc HAX/PAIR, mỗi cái trỏ vào một chỗ cụ thể (câu chữ hoặc chỗ trên màn hình).
-- Lỗi nào sửa câu chữ không cứu được (nếu có), và thiết kế cứu nó thế nào.
+### Ca 1 · Trẻ 2 tuổi sốt, thở khó và lơ mơ
+
+- **Tin khách:** “Con tôi 2 tuổi sốt, thở khó và lơ mơ. Có thuốc gì cho bé không?” **Nếu AI sai:** `goi_y_san_pham` trả tên thuốc/liều, hoặc `chuyen_duoc_si` xếp bé vào hàng chờ rồi mới nhắc đi khám; khách có thể cho uống thuốc và chờ, làm chậm chăm sóc khẩn. Đây là **lỗi hệ thống** trong nhận diện/ưu tiên dấu hiệu nguy hiểm, không đổ cho khách vì khách đã nói rõ “thở khó” và “lơ mơ”.
+- **Chọn dừng gợi ý và khuyên đi khám ngay; đồng thời thông báo dược sĩ ngoài hàng chờ.** Câu AI nguyên văn trên màn hình khách: “Bé có dấu hiệu cần được chăm sóc y tế ngay. Hãy đưa bé đến cơ sở cấp cứu gần nhất hoặc gọi cấp cứu. Đừng chờ trả lời trong chat để đi khám.” Khối đỏ nói tiếp: “Trợ lý không gợi ý sản phẩm hoặc liều dùng trong ca này.” Khách thấy trạng thái “Cần đi khám ngay”, căn cứ “thở khó” hoặc “lơ mơ”, nút “Tôi đang đưa bé đi khám” và “Xem thông báo cho dược sĩ”; khách có thể đi ngay, không cần bấm hay đợi dược sĩ. Trong prototype, thông báo khẩn **được mô phỏng hiện ngay** ở tab dược sĩ, ngoài hàng chờ; đây không phải bằng chứng dược sĩ thật đã nhận hoặc đã phản hồi trong một thời hạn cụ thể. “Đánh dấu đã xem” là thao tác mô phỏng của dược sĩ, không phải điều kiện để khách đi khám.
+- **Đã cân nhắc và loại:** hỏi thêm nhiệt độ/thuốc đang dùng rồi mới xử lý sẽ trì hoãn khi đã có dấu hiệu nguy hiểm; trả lời kèm giới hạn hoặc gợi ý thuốc có cảnh báo vẫn có thể khiến khách uống thuốc và chờ; chỉ chuyển dược sĩ vào hàng chờ không bảo đảm khách được nhắc đi khám kịp thời. Thay vào đó `khuyen_di_kham` hiện ngay, `chuyen_duoc_si` chỉ là thông báo song song, không chặn đường đi khám.
+- **HAX/PAIR tại chỗ:** ① “Trợ lý AI · chưa đưa ra chẩn đoán hay thuốc” đặt giới hạn năng lực (G1/G2); ② “Ưu tiên khẩn cấp · không xếp hàng chờ” thu hẹp hành động khi không an toàn (G10); ③ “Vì sao?” nêu đúng “thở khó”, “lơ mơ” (G11/PAIR Explainability); ④ nút đi khám và thông báo cho dược sĩ cho đường tiếp tục khi AI dừng (G8/G9/PAIR Graceful Failure). Xem ảnh [`01-khan-cap.png`](prototype/01-khan-cap.png).
+- **Câu chữ không cứu được lỗi ưu tiên sai:** nếu hệ thống vẫn gọi `goi_y_san_pham` trước khi kiểm tra dấu hiệu nguy hiểm, thêm cảnh báo vào câu trả lời là quá muộn. Luật thiết kế là chặn nhánh gợi ý trước, hiện lời khuyên đi khám và thông báo dược sĩ song song; prototype minh họa nhánh an toàn, chưa kiểm chứng một bộ phát hiện triệu chứng thực tế.
+
+### Ca 2 · Hỏi thuốc cho con nhưng chưa biết tuổi
+
+- **Tin khách:** “Con em sốt hai hôm rồi, có thuốc gì không? Em đang rất vội.” **Nếu AI sai:** tự suy ra tuổi, gọi `goi_y_san_pham` và đưa thuốc/liều cho trẻ; dữ liệu tuổi, dị ứng, thuốc đang dùng và bệnh nền đều chưa có. Đây là **lỗi ngữ cảnh thiếu dữ kiện**; khách không bị trách vì chưa biết AI cần thông tin nào. Nếu hệ thống tự bịa tuổi thay vì dừng, đó còn là lỗi hệ thống cần chặn ở quyết định gọi tool.
+- **Chọn hỏi lại đúng một câu trước khi quyết định:** AI nói nguyên văn “Mình cần biết người dùng thuốc bao nhiêu tuổi để tránh gợi ý nhầm. Bé bao nhiêu tuổi?” Khách thấy các nút “Bé 3 tuổi”, “Tôi chưa rõ”, “Bé thở khó hoặc lơ mơ” và “Gặp dược sĩ”; thẻ “Vì sao?” nói “Tin nhắn chưa nói tuổi của người dùng thuốc; ‘sốt hai hôm’ chưa đủ để chọn sản phẩm.” Nếu khách chọn “Bé 3 tuổi” hoặc “Tôi chưa rõ”, AI nói: “Vì người dùng thuốc là trẻ nhỏ hoặc thông tin vẫn thiếu, mình đã chuyển cuộc chat cho dược sĩ. Mình chưa gợi ý sản phẩm hay liều dùng.” Dược sĩ thấy tin gốc, tuổi đã báo hoặc chưa xác nhận, các dữ kiện còn thiếu; trong prototype ca hiện ở tab dược sĩ **ngay sau thao tác**, với trạng thái “Đang chờ”, không có cam kết thời gian người thật phản hồi. Khách có thể hủy khi còn chờ hoặc chuyển lại; nếu chọn dấu hiệu thở khó/lơ mơ, chuyển ngay sang ca 1 và không chờ trả lời tuổi.
+- **Đã cân nhắc và loại:** trả lời kèm giới hạn nhưng vẫn nêu sản phẩm có thể khiến khách dùng ngay dù thiếu tuổi; hỏi một loạt về dị ứng/bệnh nền trước khi xác định tuổi tăng gánh cho khách đang vội; chuyển người ngay không hỏi gì bỏ lỡ một câu sàng lọc ngắn giúp dược sĩ nhận ca đủ ngữ cảnh hơn. Vì trẻ 3 tuổi vẫn thiếu dữ kiện an toàn, biết tuổi **không** tự mở quyền gợi ý thuốc; chuyển dược sĩ là bước tiếp theo.
+- **HAX/PAIR tại chỗ:** ① “Trợ lý AI · chưa đủ căn cứ gợi ý thuốc” nêu giới hạn (G1/G2); ② câu hỏi tuổi duy nhất và nút báo dấu hiệu nguy hiểm làm rõ ngữ cảnh trước khi hành động (G10); ③ “Vì sao?” chỉ đúng dữ liệu chưa có (G11/PAIR Explainability); ④ “Gặp dược sĩ”, “Hủy yêu cầu chuyển”, “Chuyển lại cho dược sĩ” cho quyền sửa đường đi (G8/G9/PAIR Graceful Failure). Xem ảnh [`02-thieu-thong-tin.png`](prototype/02-thieu-thong-tin.png); các trạng thái sau khi bấm nằm trong `prototype/index.html`.
+- **Câu chữ không cứu được việc đoán dữ kiện:** dù AI viết “có thể không phù hợp”, tên thuốc/liều đã đưa ra vẫn có thể được dùng. Luật thiết kế là không gọi gợi ý khi thiếu dữ kiện hoặc khi người dùng là trẻ nhỏ chưa được dược sĩ duyệt; lưu rõ “Chưa được xác nhận” thay vì tự điền tuổi. Prototype chỉ mô phỏng các nút và nhánh này, không nhận văn bản tự do.
 
 ## §4. Mức tự chủ (chặng 4)
 
@@ -88,7 +98,13 @@ Với mỗi kịch bản đắt nhất:
 
 ## §6. Tốt là gì (chặng 6 — nhẹ, bỏ được nếu thiếu giờ)
 
-- 3 tiêu chí Pass/Fail chấm được; thiết kế của nhóm đạt tiêu chí nào trên 2 kịch bản đắt nhất; lỗi còn lại.
+| Tiêu chí Pass/Fail (thử bằng hai ca ở §3) | Ca 1 · dấu hiệu nguy hiểm | Ca 2 · thiếu tuổi | Lỗi còn lại |
+|---|---|---|---|
+| **1. Không đưa thuốc khi chưa an toàn.** Pass nếu không có tên thuốc, liều hoặc nút mua/bán trước khuyến nghị khẩn hay trước khi dược sĩ duyệt; Fail nếu xuất hiện một trong các nội dung đó. | **Pass trong prototype:** chỉ hiện khuyên đi khám, không gợi ý thuốc. | **Pass trong prototype:** hỏi tuổi rồi chuyển người; kể cả khi chọn “Bé 3 tuổi” vẫn không gợi ý thuốc. | Chưa thử với văn bản tự do, đồng nghĩa chưa chứng minh bộ nhận diện nguy hiểm thực tế sẽ chặn mọi cách diễn đạt. |
+| **2. Khách biết vì sao và làm gì tiếp.** Pass nếu lời AI nêu dữ kiện liên quan và có hành động tiếp không phụ thuộc đoán ý; Fail nếu chỉ nói chung chung hoặc để khách mắc kẹt. | **Pass:** thẻ ③ chỉ “thở khó”, “lơ mơ”; nút ④ và câu “Đừng chờ trả lời trong chat” chỉ bước tiếp. | **Pass:** thẻ ③ chỉ thiếu tuổi; nút ② trả lời tuổi, báo nguy hiểm, hoặc nút gặp dược sĩ. | Chưa đánh giá khả năng khách hiểu/nhận ra lời khuyên qua thử nghiệm với người dùng thật. |
+| **3. Chuyển người không tạo chờ đợi nguy hiểm hoặc không thể sửa.** Pass nếu ca khẩn được báo ngoài hàng chờ và khách được hướng dẫn đi khám ngay; ca thường chuyển có căn cứ và hủy/chuyển lại được khi đang chờ. Fail nếu ca khẩn phải đợi dược sĩ hoặc ca thường bị chuyển mà không biết thông tin gì được gửi/không thể hủy. | **Pass trong mô phỏng:** cảnh báo và tab dược sĩ hiện thông báo khẩn ngay, khách không phải chờ. | **Pass trong mô phỏng:** tab dược sĩ thấy tuổi và dữ kiện thiếu; khách hủy/chuyển lại được. | Chưa tích hợp dược sĩ thật nên chưa đo được độ trễ thông báo, nhận ca, phản hồi hay xử lý ngoài giờ. |
+
+**Câu B dùng khi mở đầu demo (khoảng 30 giây):** “Trong kênh Hỏi dược sĩ, khách nhắn ‘có thuốc gì không?’ nhưng AI phải chọn giữa hỏi thêm, gợi ý, chuyển dược sĩ và khuyên đi khám. Chúng tôi thử hai chỗ dễ gây hại: trẻ thở khó/lơ mơ cần đi khám ngay, và hỏi thuốc cho con nhưng chưa biết tuổi. Ở cả hai ca, AI nói rõ vì sao chưa gợi ý thuốc, khách thấy bước tiếp, còn dược sĩ thấy đúng dữ kiện được chuyển. Đây là prototype mô phỏng, chưa có AI hay dược sĩ thật.”
 
 ## §7. Demo
 
